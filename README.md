@@ -41,7 +41,7 @@ optional arguments:
                         season number
   -d, --debug           active debug log
 ```
-:warning: With **-d**, a debug log file **omdb.log** will be created in repo directory.
+:warning: With **-d**, a debug log file **omdb.log** will be created in script-run-directory.
 
 ### Example
 * List new star wars movie
