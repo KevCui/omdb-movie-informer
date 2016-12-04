@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import sys, os, re, json
+import sys, os, json
 import logging
 import argparse
 import urllib.request
