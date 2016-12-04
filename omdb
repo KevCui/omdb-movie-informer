@@ -1,0 +1,119 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import sys, os, re, json
+import logging
+import argparse
+import urllib.request
+
+def configLog(debug):
+    "Configure logging"
+    logfile = os.path.basename(__file__) + '.log' if debug == True else None
+    loglevel = logging.DEBUG if logfile is not None else None
+    logging.basicConfig(format='%(asctime)s [%(threadName)16s][%(module)14s][%(levelname)8s] %(message)s', filename=logfile, level=loglevel)
+
+def request(content, args, param='t'):
+    "Fetch movie data from OMDb api"
+    logging.debug('param : ' + param)
+    logging.debug('args: ' + str(args))
+
+    if str(type(content)).find('list') != -1:
+        content = '+'.join(content)
+
+    # OMDb Bug: param season is not compatible with imdb ID search
+    # Ignore season with searching ID
+    if args.season and param != 'i':
+        content += '&season=' + str(args.season)
+
+    # OMDb Bug: param year is not compatible with season
+    # Ignore year with season is defined
+    if args.year and 'season' not in content:
+        content += '&y=' + str(args.year)
+
+    url = 'http://www.omdbapi.com/?' + param[0] + '=' + str(content) + '&tomatoes=true&plot=short&r=json'
+    logging.debug('url: ' + url)
+
+    req = urllib.request.Request(url)
+    return json.loads(urllib.request.urlopen(req).read().decode('utf-8'))
+
+def getRating(json):
+    "Collect rating scores from imdb, rotten tomatoes and metascore"
+    rating = ''
+    if json['Rated'] != 'N/A':
+        rating += 'Rated: ' + json['Rated'] + '\n\n'
+    if json['imdbRating'] != 'N/A':
+        rating += 'IMDB: ' + json['imdbRating'] + ' (' + json['imdbVotes'] + ')' + '\n'
+    if json['tomatoMeter'] != 'N/A' or  json['tomatoUserMeter'] != 'N/A':
+        rating += 'Tomato: ' + json['tomatoMeter'] + ' ' + json['tomatoUserMeter'] + '%' + '\n'
+    if json['Metascore'] != 'N/A':
+        rating += 'Metascore: ' + json['Metascore']
+    return rating
+
+def printTable(list, width):
+    "Print content from list to a table"
+    import texttable
+
+    print('Find ' + str(len(list) - 1) + ' result(s)\n')
+    table = texttable.Texttable()
+    table.set_cols_width(width)
+    table.add_rows(list)
+    print(table.draw())
+
+def main():
+    # Import texttable
+    try:
+        import texttable
+    except ImportError:
+        print("It seams `texttable` is not installed. Please pip install texttable")
+        sys.exit(1)
+
+    # Setup parameter
+    #   run script with -d, active debug mode (log file will be created)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('searchtext', nargs='+', help='search text')
+    parser.add_argument('-y', '--year',   nargs='?', help='year of release')
+    parser.add_argument('-s', '--season', nargs='?', help='season number')
+    parser.add_argument('-d', '--debug',  action='store_true', dest="debug", help='active debug log')
+    args = parser.parse_args()
+
+    # Configure logging
+    configLog(args.debug)
+    logging.debug('args:\n' + str(args))
+
+    # Search TV series
+    if args.season:
+        json = request(args.searchtext, args, 't')
+        key = 'Episodes'
+    # Search Movie
+    else:
+        json = request(args.searchtext, args, 's')
+        key = 'Search'
+    logging.debug('raw json:\n' + str(json))
+
+    # Exit when error
+    if json['Response'] == 'False':
+        print(json['Error'])
+        sys.exit(1)
+
+    printResult = [['Title', 'Time', 'Genre', 'Length', 'Rating', 'Actor']]
+    printColWidth = [20, 15, 15, 10, 20, 20]
+
+    for item in json[key]:
+        mjson = request(str(item['imdbID']), args, 'i')
+        logging.debug('movie json:\n' + str(mjson))
+
+        if mjson['Runtime'] != 'N/A':
+            printResult.append([
+                mjson['Title'],
+                mjson['Released'],
+                mjson['Genre'],
+                mjson['Runtime'],
+                getRating(mjson),
+                mjson['Actors']
+            ])
+
+    # Print results in terminal
+    printTable(printResult, printColWidth)
+
+if __name__ == '__main__':
+    main()
