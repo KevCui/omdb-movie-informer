@@ -16,7 +16,7 @@ Show movie or TV series information, using API from [OMDb](http://www.omdbapi.co
 * Time: release time (day, month and year)
 * Genre
 * Length: runtime
-* Rating: rating scores from [IMDB](https://www.imdb.com), [Rotten Tomatoes](https://www.rottentomatoes.com/) and [Metacritic](http://www.metacritic.com/movie)
+* Rating: ratings from [IMDB](https://www.imdb.com), [Rotten Tomatoes](https://www.rottentomatoes.com/) and [Metacritic](http://www.metacritic.com/movie)
 * Actors
 
 ### Requirement
@@ -56,5 +56,65 @@ Find 1 result(s)
 | Wars Story           |                 | Adventure, Sci- |            |                      | Mikkelsen, Ben       |
 |                      |                 | Fi              |            |                      | Mendelsohn, Riz      |
 |                      |                 |                 |            |                      | Ahmed                |
++----------------------+-----------------+-----------------+------------+----------------------+----------------------+
+```
+
+* List all episodes in Game of Thrones season 6
+```bash
+~ $ omdb game of thrones -s 6
+Find 10 result(s)
+
++----------------------+-----------------+-----------------+------------+----------------------+----------------------+
+|        Title         |      Time       |      Genre      |   Length   |        Rating        |        Actor         |
++======================+=================+=================+============+======================+======================+
+| The Red Woman        | 24 Apr 2016     | Adventure,      | 50 min     | Rated: TV-MA         | Peter Dinklage,      |
+|                      |                 | Drama, Fantasy  |            |                      | Nikolaj Coster-      |
+|                      |                 |                 |            | IMDB: 8.4 (22230)    | Waldau, Lena Headey, |
+|                      |                 |                 |            |                      | Emilia Clarke        |
++----------------------+-----------------+-----------------+------------+----------------------+----------------------+
+| Home                 | 01 May 2016     | Adventure,      | 54 min     | Rated: TV-MA         | Peter Dinklage,      |
+|                      |                 | Drama, Fantasy  |            |                      | Nikolaj Coster-      |
+|                      |                 |                 |            | IMDB: 9.5 (28139)    | Waldau, Lena Headey, |
+|                      |                 |                 |            |                      | Kit Harington        |
++----------------------+-----------------+-----------------+------------+----------------------+----------------------+
+| Oathbreaker          | 08 May 2016     | Adventure,      | 52 min     | Rated: TV-MA         | Peter Dinklage,      |
+|                      |                 | Drama, Fantasy  |            |                      | Nikolaj Coster-      |
+|                      |                 |                 |            | IMDB: 8.7 (17050)    | Waldau, Lena Headey, |
+|                      |                 |                 |            |                      | Emilia Clarke        |
++----------------------+-----------------+-----------------+------------+----------------------+----------------------+
+| Book of the Stranger | 15 May 2016     | Adventure,      | 59 min     | Rated: TV-MA         | Peter Dinklage,      |
+|                      |                 | Drama, Fantasy  |            |                      | Nikolaj Coster-      |
+|                      |                 |                 |            | IMDB: 9.2 (18525)    | Waldau, Lena Headey, |
+|                      |                 |                 |            |                      | Emilia Clarke        |
++----------------------+-----------------+-----------------+------------+----------------------+----------------------+
+| The Door             | 22 May 2016     | Adventure,      | 54 min     | Rated: TV-MA         | Peter Dinklage,      |
+|                      |                 | Drama, Fantasy  |            |                      | Emilia Clarke, Kit   |
+|                      |                 |                 |            | IMDB: 9.7 (38565)    | Harington, Aidan     |
+|                      |                 |                 |            |                      | Gillen               |
++----------------------+-----------------+-----------------+------------+----------------------+----------------------+
+| Blood of My Blood    | 29 May 2016     | Adventure,      | 52 min     | Rated: TV-MA         | Nikolaj Coster-      |
+|                      |                 | Drama, Fantasy  |            |                      | Waldau, Lena Headey, |
+|                      |                 |                 |            | IMDB: 8.4 (16978)    | Emilia Clarke,       |
+|                      |                 |                 |            |                      | Natalie Dormer       |
++----------------------+-----------------+-----------------+------------+----------------------+----------------------+
+| The Broken Man       | 05 Jun 2016     | Adventure,      | 56 min     | Rated: TV-MA         | Peter Dinklage, Kit  |
+|                      |                 | Drama, Fantasy  |            |                      | Harington, Liam      |
+|                      |                 |                 |            | IMDB: 8.6 (15623)    | Cunningham, Nikolaj  |
+|                      |                 |                 |            |                      | Coster-Waldau        |
++----------------------+-----------------+-----------------+------------+----------------------+----------------------+
+| No One               | 12 Jun 2016     | Adventure,      | 59 min     | Rated: TV-MA         | Peter Dinklage,      |
+|                      |                 | Drama, Fantasy  |            |                      | Nikolaj Coster-      |
+|                      |                 |                 |            | IMDB: 8.2 (18250)    | Waldau, Lena Headey, |
+|                      |                 |                 |            |                      | Emilia Clarke        |
++----------------------+-----------------+-----------------+------------+----------------------+----------------------+
+| Battle of the        | 19 Jun 2016     | Adventure,      | 60 min     | Rated: TV-MA         | Peter Dinklage, Kit  |
+| Bastards             |                 | Drama, Fantasy  |            |                      | Harington, Emilia    |
+|                      |                 |                 |            | IMDB: 9.9 (131896)   | Clarke, Liam         |
+|                      |                 |                 |            |                      | Cunningham           |
++----------------------+-----------------+-----------------+------------+----------------------+----------------------+
+| The Winds of Winter  | 26 Jun 2016     | Adventure,      | 69 min     | Rated: TV-MA         | Peter Dinklage,      |
+|                      |                 | Drama, Fantasy  |            |                      | Nikolaj Coster-      |
+|                      |                 |                 |            | IMDB: 9.9 (87754)    | Waldau, Lena Headey, |
+|                      |                 |                 |            |                      | Kit Harington        |
 +----------------------+-----------------+-----------------+------------+----------------------+----------------------+
 ```
