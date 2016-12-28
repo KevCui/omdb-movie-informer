@@ -6,8 +6,8 @@ Tags: CLI, python, script
 created:  04 Dec 2016
 ---
 
-movie-informer
-==============
+omdb-movie-informer
+===================
 Show movie or TV series information, using API from [OMDb](http://www.omdbapi.com/)<br/>
 :warning: The request is slow because OMDb is :snail:
 
